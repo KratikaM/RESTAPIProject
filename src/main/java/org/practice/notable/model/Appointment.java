@@ -30,7 +30,7 @@ public class Appointment {
 		this.patientFirstName = patientFirstName;
 		this.patientLastName = patientLastName;
 		this.appointmentDate = LocalDate.parse(appointmentDate);
-		this.appointmentTime = LocalTime.parse(appointmentTime, DateTimeFormatter.ofPattern("hh:mm:ss a")) ;
+		this.appointmentTime = LocalTime.parse(appointmentTime, DateTimeFormatter.ofPattern("HH:mm:ss a")) ;
 		this.kind = kind;
 	}
 

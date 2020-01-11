@@ -7,7 +7,9 @@ import org.practice.notable.database.DatabaseClass;
 import org.practice.notable.model.Doctor;
 
 public class DoctorService {
+	
 	private static boolean loadDatabase = true;
+	private static long COUNTER = 1; //for ID increment
 	private Map<Long, Doctor> doctors = DatabaseClass.getDoctors();
 
 	public DoctorService() {
@@ -16,6 +18,7 @@ public class DoctorService {
 			doctors.put(1l, new Doctor(1, "Julius", "Hibbert"));
 			doctors.put(2l, new Doctor(2, "Algernop", "Krieger"));
 			doctors.put(3l, new Doctor(3, "Nick", "Riviera"));
+			COUNTER = 4;
 			loadDatabase = false;
 		}
 

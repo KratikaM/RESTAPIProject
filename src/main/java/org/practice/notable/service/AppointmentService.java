@@ -14,7 +14,10 @@ import org.practice.notable.model.Doctor;
 
 public class AppointmentService {
 	private static boolean loadDatabase = true;
+	private static long COUNTER = 1; //for ID increment
+
 	private static final int MAX_APPOINTMENT_ALLOWED_AT_SAME_TIME = 3;
+	
 	private static final int APPOINTMENT_MINUTE_START_INTERVAL = 15;
 
 	private Map<Long, Appointment> appointments = DatabaseClass.getAppointments();
@@ -28,6 +31,7 @@ public class AppointmentService {
 			appointments.put(3L, new Appointment(3L, 2, "Gillete", "Ray", "2018-05-09", "09:00:00 AM", "Follow up"));
 			appointments.put(4L, new Appointment(4L, 2, "Kane", "Lana", "2018-05-09", "09:30:00 AM", "New Patient"));
 			appointments.put(5L, new Appointment(5L, 2, "Poovey", "Pam", "2018-05-09", "10:00:00 AM", "New Patient"));
+			COUNTER = 6;
 			loadDatabase = false;
 		}
 
@@ -53,6 +57,7 @@ public class AppointmentService {
 		return appointments.remove(appointmentId);
 	}
 
+	//Add appoint ment
 	public Appointment addAppointment(long doctorId, Appointment appointment) {
 
 		Appointment newappointment = null;
@@ -62,7 +67,7 @@ public class AppointmentService {
 
 			if (canAdd) {
 				newappointment = new Appointment();
-				appointment.setId(appointments.size() + 1);
+				appointment.setId(COUNTER++);
 				appointment.setDoctorId(doctorId);
 				appointments.put(appointment.getId(), appointment);
 				newappointment = appointment;
@@ -90,7 +95,7 @@ public class AppointmentService {
 		}
 
 		try {
-			LocalTime.parse(appointment.getAppointmentTime().toString(), DateTimeFormatter.ofPattern("hh:mm:ss a"));
+			LocalTime.parse(appointment.getAppointmentTime().toString());
 		} catch (DateTimeParseException e) {
 			return false;
 		}

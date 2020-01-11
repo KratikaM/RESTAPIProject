@@ -34,10 +34,19 @@ public class AppointmentResource {
 	
 	@DELETE
 	@Path("/{doctorId}/appointments/{appointmentId}")
-	public void deleteAppointment(@PathParam("doctorId") long doctorId,
+	public Response deleteAppointment(@PathParam("doctorId") long doctorId,
 								  @PathParam("appointmentId") long appointmentId)
 	{
-		appointmentService.removeAppointment(doctorId,appointmentId);
+		
+		Appointment appointment =  appointmentService.removeAppointment(doctorId,appointmentId);
+		if (appointment == null) {
+			return Response.status(Status.BAD_REQUEST)
+					  .entity(appointment).build();
+		}
+		else {
+			return Response.status(Status.OK)
+					  .entity(appointment).build();
+		}
 	}
 	
 	@POST
